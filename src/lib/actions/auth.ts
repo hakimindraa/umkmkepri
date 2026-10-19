@@ -24,6 +24,7 @@ export async function loginAction(
     return { error: 'Username dan password wajib diisi.' };
   }
 
+  let userRole = 'umkm';
   try {
     const userResult = await db
       .select()
@@ -42,7 +43,9 @@ export async function loginAction(
       return { error: 'Username atau kata sandi tidak sesuai.' };
     }
 
-    // Ambil profil UMKM terkait
+    userRole = user.role;
+
+    // Ambil profil UMKM terkait (jika ada)
     const profileResult = await db
       .select()
       .from(umkmProfiles)
@@ -56,7 +59,7 @@ export async function loginAction(
       username: user.username,
       role: user.role,
       umkmId: profile?.id,
-      businessName: profile?.businessName,
+      businessName: profile?.businessName || user.name || 'Admin',
     });
   } catch (err: any) {
     console.error('Login error:', err);

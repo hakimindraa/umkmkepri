@@ -1,4 +1,18 @@
 import React from 'react';
+import {
+  Utensils,
+  Fish,
+  Sparkles,
+  Shirt,
+  Wheat,
+  Briefcase,
+  Package,
+  Coffee,
+  ShoppingBag,
+  Tag,
+  Heart,
+  LucideIcon,
+} from 'lucide-react';
 
 export function InstagramIcon({ className = 'h-4 w-4' }: { className?: string }) {
   return (
@@ -16,4 +30,29 @@ export function InstagramIcon({ className = 'h-4 w-4' }: { className?: string })
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
     </svg>
   );
+}
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  Utensils,
+  Fish,
+  Sparkles,
+  Shirt,
+  Wheat,
+  Briefcase,
+  Package,
+  Coffee,
+  ShoppingBag,
+  Tag,
+  Heart,
+};
+
+export function CategoryIcon({
+  iconName,
+  className = 'h-4 w-4',
+}: {
+  iconName?: string | null;
+  className?: string;
+}) {
+  const IconComponent = (iconName && ICON_MAP[iconName]) || Package;
+  return <IconComponent className={className} />;
 }

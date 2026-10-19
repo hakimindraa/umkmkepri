@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import { getSession } from '@/lib/auth/session';
-import { Store, User, LogOut, PlusCircle, Compass } from 'lucide-react';
+import { Store, User, LogOut, PlusCircle } from 'lucide-react';
 import { logoutAction } from '@/lib/actions/auth';
+import MobileNav from '@/components/MobileNav';
 
 export default async function Navbar() {
   const session = await getSession();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
@@ -52,8 +53,8 @@ export default async function Navbar() {
           </Link>
         </nav>
 
-        {/* Right CTA */}
-        <div className="flex items-center gap-3">
+        {/* Desktop Right CTA */}
+        <div className="hidden md:flex items-center gap-3">
           {session ? (
             <div className="flex items-center gap-3">
               <Link
@@ -92,6 +93,9 @@ export default async function Navbar() {
             </div>
           )}
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        <MobileNav session={session} />
       </div>
     </header>
   );

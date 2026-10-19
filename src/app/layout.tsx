@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import AppShell from '@/components/AppShell';
 import { Suspense } from 'react';
 
 const inter = Inter({
@@ -41,11 +42,16 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-white text-slate-900 font-sans">
-        <Suspense fallback={<NavbarFallback />}>
-          <Navbar />
-        </Suspense>
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AppShell
+          navbar={
+            <Suspense fallback={<NavbarFallback />}>
+              <Navbar />
+            </Suspense>
+          }
+          footer={<Footer />}
+        >
+          {children}
+        </AppShell>
       </body>
     </html>
   );

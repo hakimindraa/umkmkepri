@@ -56,3 +56,12 @@ export async function destroySession() {
   const cookieStore = await cookies();
   cookieStore.delete(COOKIE_NAME);
 }
+
+// 4. Verifikasi Sesi Admin
+export async function requireAdminSession(): Promise<SessionPayload | null> {
+  const session = await getSession();
+  if (!session || session.role !== 'admin') {
+    return null;
+  }
+  return session;
+}
